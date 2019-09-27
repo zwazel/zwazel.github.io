@@ -3,7 +3,7 @@
     "redirects": [
       {
         "source": "/about",
-        "destination": "/",
+        "destination": "/about.html",
         "type": 301
       },
       {
