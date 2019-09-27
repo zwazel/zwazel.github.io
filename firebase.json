@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "redirects":[
+    "redirects": [
       {
         "source": "/about",
         "destination": "/",
@@ -11,7 +11,7 @@
         "destination": "/",
         "type": 302
       }
-    ]
+    ],
     "public": "public",
     "ignore": [
       "firebase.json",
