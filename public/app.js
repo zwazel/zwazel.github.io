@@ -29,7 +29,7 @@ cross.addEventListener('click', (e) => {
 }
 
 // getting data
-db.collection('cafes').get().then((snapshot) => {
+db.collection('cafes').orderBy('city').get().then((snapshot) => {
   snapshot.docs.forEach(doc => {
     console.log(doc.data())
     renderCafe(doc);
