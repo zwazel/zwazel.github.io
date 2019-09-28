@@ -1,6 +1,9 @@
 <html>
 <html lang="de" dir="ltr">
   <head>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
     <link rel="stylesheet" href="styles.css">
     <meta charset="utf-8">
     <title>TimIrmler</title>
@@ -25,6 +28,27 @@
 
         </div>
 
-        <script src="app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+
+          <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+              apiKey: "AIzaSyDOTj4W0YVrtA--5vkYUfpisfDTdb48e-k",
+              authDomain: "fir-hosting-zwazel.firebaseapp.com",
+              databaseURL: "https://fir-hosting-zwazel.firebaseio.com",
+              projectId: "fir-hosting-zwazel",
+              storageBucket: "fir-hosting-zwazel.appspot.com",
+              messagingSenderId: "1066022891139",
+              appId: "1:1066022891139:web:f26b5d71a3944f7e0875b6",
+              measurementId: "G-VVE1NVS88M"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            firebase.analytics();
+          </script>
+          <script src="app.js"></script>
     </body>
 </html>
