@@ -14,7 +14,6 @@ li.appendChild(name);
 li.appendChild(city);
 
 cafeList.appendChild(li);
-
 }
 
 db.collection('cafes').get().then((snapshot) => {
