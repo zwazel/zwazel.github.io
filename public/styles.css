@@ -1,11 +1,42 @@
 body{
   padding: 0;
   margin: 0;
+  font:1em;
+}
+
+.content{
+  padding:30px;
+}
+
+.nav-main{
+  width:100%;
+  background-color:#222;
+  height:70px;
+  color:#fff;
+}
+
+.logo{
+  float:left;
+  height:40px;
+  padding:15px 30px;
+  font-size:1.4em;
+  line-height:40px;
+}
+
+.nav-main > ul {
+  margin:0;
+  padding:0;
+  float:left;
+  list-style-type:none;
+}
+
+.nav-main > ul > li {
+  float: left;
 }
 
 .middle{
   position: absolute;
-  transform: translateY(-50%);
+  transform: translateY();
   width: 100%;
   text-align: center;
 }
