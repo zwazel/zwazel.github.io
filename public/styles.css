@@ -34,9 +34,65 @@ body{
   float: left;
 }
 
+.nav-item {
+  display:inline-block;
+  padding:15px 20px;
+  height:40px;
+  line-height:40px;
+  color:#fff;
+  text-decoration:none;
+}
+
+.nav-item:hover {
+  background-color:#444;
+}
+
+.nav-content {
+  position:absolute;
+  top:70px;
+  overflow:hidden;
+  background-color:#222;
+  max-height:0px;
+}
+
+.nav-content a {
+  color:#fff;
+  text-decoration:none;
+}
+
+.nav-content a:hover {
+  text-decoration:underline;
+}
+
+.nav-sub {
+  padding:20px;
+}
+
+.nav-sub ul {
+  padding:0;
+  margin:0;
+  list-style-type:none;
+}
+
+.nav-sub ul li a {
+  display:inline-block;
+  padding:5px 0;
+}
+
+.nav-item:focus {
+  background-color:#444;
+}
+
+.nav-item:focus ~ .nav-content {
+  max-height:400px;
+  -webkit-transition:max-height 0.4s ease-in;
+  -moz-transition:max-height 0.4s ease-in;
+  transition:max-height 0.4s ease-in;
+}
+
 .middle{
   position: absolute;
-  transform: translateY();
+  transform: translateY(52%);
   width: 100%;
   text-align: center;
 }
