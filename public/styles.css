@@ -5,8 +5,7 @@ body{
 }
 
 .content{
-  padding:30px;
-
+  padding:100px;
 }
 
 .nav-main{
@@ -93,7 +92,7 @@ body{
 
 .middle{
   position: absolute;
-  transform: translateY(52%);
+  transform: translateY(55%);
   width: 100%;
   text-align: center;
 }
