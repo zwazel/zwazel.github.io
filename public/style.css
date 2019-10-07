@@ -86,13 +86,20 @@ body{
   margin:0 auto;
 }
 
+.containerParallax p {
+  color: #e8fffa;
+}
+
 /* typewriter*/
 .typewriter{
-  position: fixed;
+  position: absolute;
   z-index: 2;
   top: 50%;
-
 }
+.wrap {
+  color: #e8fffa;
+}
+
 
 
 /* Hover shit*/
