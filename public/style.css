@@ -30,24 +30,28 @@ body{
   box-sizing: border-box;
 }
 
+/* header */
+.headLights {
+  position: fixed;
+  z-index: -1;
+}
+
 /*parallax*/
 .intro {
     box-sizing: border-box;
-    min-height: 100vh;
+    min-height: 75vh;
     padding: 30vw 0 5vw;
     position: relative;
     transform-style: inherit;
     width: 100vw;
-    top: 60%;
+    top: 100%;
 }
-
 .intro h1 {
     margin-top: -100px;
 }
 .intro, .intro:before {
     background: 50% 50% / cover;
 }
-
 .intro:before {
     position: absolute;
     bottom: 0;
@@ -62,7 +66,7 @@ body{
     background-attachment: local;
     background-position: center;
     transform-origin: center center 0;
-    transform:  translateZ(-1px) scale(2.6);
+    transform:  translateZ(-1px) scale(3);
     z-index: -1;
     height: 100%;
 }
@@ -72,17 +76,22 @@ body{
   width:50%;
   position: absolute;
   z-index: 1;
-  padding:100px 0
-  top: 50%;
+  padding:100px 0;
+  top: 30%;
+  font-size: 20px;
+
 }
 .containerParallax {
   max-width:800px;
-  margin:0 auto
+  margin:0 auto;
 }
 
 /* typewriter*/
 .typewriter{
-  position: absolute;
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+
 }
 
 
