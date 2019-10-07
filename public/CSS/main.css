@@ -20,6 +20,7 @@ body{
     overflow-x: hidden;
     perspective: 1px;
     transform-style: preserve-3d;
+    min-height: 100vh;
 }
 * {
   color:#fff;
@@ -27,131 +28,6 @@ body{
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-}
-
-
-/* nav bar with social media */
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
-.socialMenu {
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
-  display: inline-block;
-  cursor: pointer;
-  pointer-events: none;
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-}
-.socialMenu:hover {
-  pointer-events: all;
-}
-.label {
-  display: inline-block;
-  cursor: pointer;
-  pointer-events: all;
-}
-.spacer {
-  display: inline-block;
-  width: 50px;
-  margin-left: -15px;
-  margin-right: 20px;
-  vertical-align: middle;
-  cursor: pointer;
-  position: relative;
-}
-.spacer:before {
-  content: "";
-  position: absolute;
-  border-bottom: 1px solid #ffffff;
-  height: 1px;
-  width: 0%;
-  transition: width 0.25s ease;
-  transition-delay: 0.7s;
-}
-.item {
-  position: relative;
-  display: inline-block;
-  margin-right: 5px;
-  margin-left: 5px;
-  top: 10px;
-  opacity: 0;
-  transition: opacity 0.5s ease, top 0.5s ease;
-  transition-delay: 0;
-}
-span {
-  transition: color 0.5s ease;
-}
-.item:hover span {
-  color: #d4ff00;
-}
-.socialMenu:hover .spacer:before {
-  width: 100%;
-  transition-delay: 0s;
-}
-.socialMenu:hover .item {
-  opacity: 1;
-  top: 0px;
-}
-.item:nth-child(1) {
-  transition-delay: 0.45s;
-}
-.item:nth-child(2) {
-  transition-delay: 0.4s;
-}
-.item:nth-child(3) {
-  transition-delay: 0.35s;
-}
-.item:nth-child(4) {
-  transition-delay: 0.3s;
-}
-.item:nth-child(5) {
-  transition-delay: 0.25s;
-}
-.item:nth-child(6) {
-  transition-delay: 0.2s;
-}
-.item:nth-child(7) {
-  transition-delay: 0.15s;
-}
-.item:nth-child(8) {
-  transition-delay: 0.1s;
-}
-.item:nth-child(9) {
-  transition-delay: 0.05s;
-}
-.item:nth-child(10) {
-  transition-delay: 0s;
-}
-.socialMenu:hover .item:nth-child(1) {
-  transition-delay: 0.25s;
-}
-.socialMenu:hover .item:nth-child(2) {
-  transition-delay: 0.3s;
-}
-.socialMenu:hover .item:nth-child(3) {
-  transition-delay: 0.35s;
-}
-.socialMenu:hover .item:nth-child(4) {
-  transition-delay: 0.4s;
-}
-.socialMenu:hover .item:nth-child(5) {
-  transition-delay: 0.45s;
-}
-.socialMenu:hover .item:nth-child(6) {
-  transition-delay: 0.5s;
-}
-.socialMenu:hover .item:nth-child(7) {
-  transition-delay: 0.55s;
-}
-.socialMenu:hover .item:nth-child(8) {
-  transition-delay: 0.6s;
-}
-.socialMenu:hover .item:nth-child(9) {
-  transition-delay: 0.65s;
-}
-.socialMenu:hover .item:nth-child(10) {
-  transition-delay: 0.7s;
 }
 
 /*parallax*/
@@ -208,6 +84,7 @@ span {
 .typewriter{
   position: absolute;
 }
+
 
 /* Hover shit*/
 .container{
@@ -284,6 +161,7 @@ span {
 .container .card .face.face2 .content p{
     margin: 0;
     padding: 0;
+    color: #333;
 }
 
 .container .card .face.face2 .content a{
