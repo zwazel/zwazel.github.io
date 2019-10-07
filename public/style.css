@@ -32,14 +32,17 @@ body{
 
 /* header */
 .headLights {
-  position: fixed;
+  position: absolute;
   z-index: -1;
+}
+.header {
+  position: absolute;
 }
 
 /*parallax*/
 .intro {
     box-sizing: border-box;
-    min-height: 75vh;
+    min-height: 20%;
     padding: 30vw 0 5vw;
     position: relative;
     transform-style: inherit;
@@ -47,7 +50,14 @@ body{
     top: 100%;
 }
 .intro h1 {
-    margin-top: -100px;
+    margin-top: -25px;
+    position: relative;
+    bottom: 200px;
+}
+.intro p {
+  margin-top: -25px;
+  position: relative;
+  bottom: 150px;
 }
 .intro, .intro:before {
     background: 50% 50% / cover;
@@ -58,7 +68,7 @@ body{
     content: "";
     left: 0;
     right: 0;
-    top: 0;
+    top: 5%;
     display: block;
     background-image: url(https://i.imgur.com/iuiH5Cu.jpg);
     background-size: cover;
@@ -73,7 +83,7 @@ body{
 
 .contentParallax {
   margin:200px auto;
-  width:50%;
+  width:60%;
   position: absolute;
   z-index: 1;
   padding:100px 0;
@@ -94,7 +104,7 @@ body{
 .typewriter{
   position: absolute;
   z-index: 2;
-  top: 50%;
+  top: 58%;
 }
 .wrap {
   color: #e8fffa;
@@ -106,7 +116,7 @@ body{
 .container{
     width: 1000px;
     position: absolute;
-		top: 10px;
+		top: 3%;
     display: flex;
     justify-content: space-between;
 }
