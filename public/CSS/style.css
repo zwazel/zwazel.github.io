@@ -26,7 +26,7 @@ header::before {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   display: block;
-  background: url(https://picsum.photos/g/1921/1081?random) top center;
+  background: url(bilder/wald2.jpg) top center;
   background-size: cover;
   transform: translateZ(-1px) scale(2.1);
   min-height: 100%;
@@ -56,7 +56,7 @@ section {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   display: block;
-  background: url(https://picsum.photos/g/1920/1080?random) top center;
+  background: url(bilder/wald.jpg) top center;
   background-size: cover;
   transform: translateZ(-.5px) scale(1.6);
   z-index: -1;
@@ -111,9 +111,14 @@ html {
 /*************************************************************
   Typewriter
 **************************************************************/
+.typewriter {
+  position: relative;
+  bottom: 700px;
+}
 .typewriter h1 {
   box-shadow: none;
   background-color: transparent;
+
 }
 .wrap{
   color: #f9f9f9;
