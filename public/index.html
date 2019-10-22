@@ -7,34 +7,37 @@
     <title></title>
   </head>
   <body>
+    
+    <div class="main_div" style="position: relative; bottom: 60%;">
 
-    <!--stars-->
-    <div class="stars">
-      <canvas id="canvas" width="1400" height="600"></canvas>
-      <script src="scripts/stars.js" charset="utf-8"></script>
+      <!--stars-->
+      <div class="stars" style="position: absolute; top: 0px; left: 0px; z-index: 1;">
+        <canvas id="canvas" width="1400" height="600"></canvas>
+        <script src="scripts/stars.js" charset="utf-8"></script>
+      </div>
+
+      <!--typewriter-->
+      <div class="typewriter" style="z-index: 2; position: absolute; top: 400px; left: 50%; white-space: nowrap;">
+        <h1>
+          <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Im Tim.", "I am Creative.", "I Love to Develop." ]'>
+            <span class="wrap"></span>
+          </a>
+        </h1>
+      </div>
     </div>
 
+<div class="content_div" style="position: relative; top: 60%;">
+  <!-- parallax and content-->
+  <header>
+    <h1>CSS-Only Parallax Effect</h1>
+  </header>
+  <section class="section1">
+    <h1>Section w/o parallax effect</h1>
+  </section>
+  <section class="section2">
+    <h1>Section w/ parallax effect</h1>
+  </section>
+</div>
 
-    <!--typewriter-->
-    <div class="typewriter">
-      <h1>
-        <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Im Tim.", "I am Creative.", "I Love to Develop." ]'>
-          <span class="wrap"></span>
-        </a>
-      </h1>
-
-    </div>
-
-
-    <!-- parallax and content-->
-    <header>
-      <h1>CSS-Only Parallax Effect</h1>
-    </header>
-    <section class="section1">
-      <h1>Section w/o parallax effect</h1>
-    </section>
-    <section class="section2">
-      <h1>Section w/ parallax effect</h1>
-    </section>
   </body>
 </html>
