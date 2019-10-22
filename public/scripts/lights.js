@@ -1,4 +1,4 @@
-var canvas = document.getElementById("header");
+var canvas = document.getElementById("light");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;

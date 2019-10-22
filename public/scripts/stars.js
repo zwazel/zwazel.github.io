@@ -1,6 +1,6 @@
 //Based on https://www.youtube.com/watch?v=3CycKKJiwis
 
-var canvas = document.getElementById("canvas");
+var canvas = document.getElementById("star");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
