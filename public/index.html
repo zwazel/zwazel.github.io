@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html lang="de" dir="ltr">
   <head>
-    <link rel="stylesheet" href="styles.css">
+    <script src="scripts/typewriter.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="CSS/style.css">
     <meta charset="utf-8">
-    <title>TimIrmler</title>
+    <title></title>
   </head>
   <body>
 
-    <h1>Zwazel</h1>
+    <!--stars-->
+    <div class="stars">
+      <canvas id="canvas" width="1400" height="600"></canvas>
+      <script src="scripts/stars.js" charset="utf-8"></script>
+    </div>
 
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </nav>
 
-    <div class="container">
-      <article>
-        <<h2>Welcome...</h2>
-        <p>lalalalalalalalalalalalalalalaalallaA</p>
-        <p>lalalalalalalalalalalalalalalaalallaA</p>
-        <p>lalalalalalalalalalalalalalalaalallaA</p>
-        <p>lalalalalalalalalalalalalalalaalallaA</p>
-      </article>
-      </div>
+    <!--typewriter-->
+    <div class="typewriter">
+      <h1>
+        <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Im Tim.", "I am Creative.", "I Love to Develop." ]'>
+          <span class="wrap"></span>
+        </a>
+      </h1>
 
+    </div>
+
+
+    <!-- parallax and content-->
+    <header>
+      <h1>CSS-Only Parallax Effect</h1>
+    </header>
+    <section class="section1">
+      <h1>Section w/o parallax effect</h1>
+    </section>
+    <section class="section2">
+      <h1>Section w/ parallax effect</h1>
+    </section>
   </body>
 </html>
