@@ -2,7 +2,6 @@ var canvas = document.getElementById("light");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-canvas.style.position = "absolute";
 
 // Initialize the GL context
 var gl = canvas.getContext('webgl');

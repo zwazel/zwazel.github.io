@@ -9,7 +9,8 @@ body {
   transform-style: preserve-3d;
   font-size: 62.5%;
   font-family: 'Overlock', Arial, Helvetica, sans-serif;
-  padding-bottom: 200px;
+  padding-bottom: 185px;
+  padding-top: 0;
 }
 
 /*************************************************************
@@ -98,7 +99,7 @@ h1 {
 /*************************************************************
   BASIC STYLES
 **************************************************************/
-*{text-decoration: none;},
+*{text-decoration: none; margin: 0; padding: 0;},
 *::before,
 *::after,
 :root {
