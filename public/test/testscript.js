@@ -1,208 +1,197 @@
-//Based on https://www.youtube.com/watch?v=3CycKKJiwis
 
-var canvas = document.getElementById("canvas");
+// configurable:
+var dotSize = 56, blurLevels=9, speed=1, particleScale=0.33;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// globals:
+var c = createjs, stage, t=0, count=0, w, h, max, min;
+var spriteSheet, helixes=[];
 
-// Initialize the GL context
-var gl = canvas.getContext('webgl');
-if(!gl){
-  console.error("Unable to initialize WebGL.");
+/* Objects */
+function HelixParticle(spriteSheet) {
+	this.Sprite_constructor(spriteSheet);
+	this.t = 0;
+	this.speed = 1;
+	this.size = 1;
+	this.altAmp = 1;
+	this.altPer = 1;
+}
+c.extend(HelixParticle, c.Sprite);
+c.promote(HelixParticle, "Sprite");
+
+
+function Helix(particleCount) {
+	this.Container_constructor();
+	this.particleCount = particleCount||1000;
+	this.set({});
+	this.particles = [];
+	this.createParticles();
+}
+var p = c.extend(Helix, c.Container);
+p.set = function(o) {
+	this.overscan = o.overscan==null?0.2:o.overscan;
+	this.particleScale = o.particleScale||1;
+	this.speed = o.speed||1;
+	this.amplitude = o.amplitude==null?0.5:o.amplitude;
+	this.altAmplitude = o.altAmplitude==null?0.5:o.altAmplitude;
+	this.startRotation = o.startRotation||0;
+	this.rotations = o.rotations==null?2:o.rotations;
+}
+p.createParticles = function() {
+	var dots = this.particles, l=this.particleCount;
+	while (l-- > 0) {
+		var seed = rnd(1);
+		dot = new HelixParticle(spriteSheet);
+		dot.t = rnd(Math.PI);
+		dot.speed = Math.pow(seed*0.5+0.5,3);
+		dot.size = 1-dot.speed;
+		dot.altAmp = rnd(0.1,0.6)*rnd(0,dot.speed)*(rnd(1)<0.5?-1:1);
+		dot.altPer = rnd(0.3,2);
+		dot.altStart = rnd(Math.PI*2);
+		dot.gotoAndStop(seed*blurLevels|0);
+		dots.push(dot);
+		this.addChild(dot);
+	}
+}
+p.tick = function(delta) {
+	var fov = min, dots = this.particles, a0=this.amplitude*0.5, a1=this.altAmplitude*0.5, pScale=this.particleScale*particleScale;
+	var rotations = this.rotations*Math.PI*2, startRotation=this.startRotation*Math.PI*2;
+	var adjW = w*(1+this.overscan*2);
+	for (var i=0, l=dots.length; i<l; i++) {
+		var dot = dots[i], altPer=dot.altPer*Math.PI*2;
+		var t = (dot.t += delta*0.0001*this.speed*speed*dot.speed)%1;
+
+		// base helix shape:
+		if (t < 0) { t = 1+t; }
+		var x = t*adjW-adjW/2;
+
+		t = x/adjW;
+		var y = Math.sin(t*rotations+startRotation)*min*a0;
+		var z = Math.cos(t*rotations+startRotation)*min*a0;
+
+		// introduce variation:
+		y += Math.sin(t*altPer+dot.altStart)*min*dot.altAmp*a1;
+		z += Math.cos(t*altPer+dot.altStart)*min*dot.altAmp*a1;
+
+		var s = fov/(z+fov);
+		dot.x = x*s; // disable perspective on the particle positions
+		dot.y = y*s;
+		dot.scaleX = dot.scaleY = Math.pow(s*(1+dot.size),2)*pScale;
+		dot.alpha = s-0.6;
+	}
+}
+p.clone = function(particleCount) {
+	var o = new Helix(particleCount||this.particleCount);
+	this._cloneProps(o);
+	o.set(this);
+	return o;
+}
+c.promote(Helix, "Container");
+
+
+/* global methods */
+setup();
+function setup() {
+	stage = new c.StageGL("target");
+	stage.tickChildren = false;
+	stage.setClearColor("#201624"); // #206699
+
+	window.addEventListener("resize", onResize);
+	onResize();
+
+	spriteSheet = generateSpriteSheet();
+
+	var helix;
+
+	helix = stage.addChild(new Helix(100));
+	helix.x = w/2;
+	helix.y = h/2;
+	helix.speed = 0.1;
+	helix.alpha = 0.1;
+	helix.particleScale = 5;
+	helix.altAmplitude = 1.6;
+	helix.amplitude = 0.6;
+	helix.rotations = 3;
+	helixes.push(helix);
+
+	helix = stage.addChild(helix.clone(150));
+	helix.particleScale = 3;
+	helix.rotation = -20;
+	helix.speed = -0.5;
+	helix.amplitude = 0.1;
+	helix.altAmplitude = 2;
+	helix.alpha = 0.3;
+	helixes.push(helix);
+
+	helix = stage.addChild(new Helix(1500));
+	helix.x = w/2;
+	helix.y = h/2;
+	helix.amplitude = 0.4;
+	helix.particleScale = 0.2;
+	helix.rotation = -40;
+	helix.rotations = 2.5;
+	helix.speed = 2;
+	helix.startRotation = 0.33;
+	helixes.push(helix);
+
+	helix = stage.addChild(helix.clone());
+	helix.startRotation = 0.83;
+	helixes.push(helix);
+
+	helix = stage.addChild(helix.clone(100));
+	helix.particleScale = 0.1;
+	helix.speed = -3;
+	helixes.push(helix);
+
+	helix = stage.addChild(helix.clone());
+	helix.startRotation = 0.33;
+	helixes.push(helix);
+
+	c.Ticker.timingMode = c.Ticker.RAF;
+	c.Ticker.on("tick", tick);
 }
 
-//Time step
-var dt = 0.03;
-//Time
-var time = 0.0;
-
-//************** Shader sources **************
-
-var vertexSource = `
-attribute vec2 position;
-void main() {
-  gl_Position = vec4(position, 0.0, 1.0);
-}
-`;
-
-var fragmentSource = `
-precision highp float;
-
-uniform float width;
-uniform float height;
-vec2 resolution = vec2(width, height);
-
-uniform float time;
-
-float random(vec2 par){
-   return fract(sin(dot(par.xy,vec2(12.9898,78.233))) * 43758.5453);
+function generateSpriteSheet() {
+	// generates a 4x4 sheet of dots at different blur levels.
+	var holder = new c.Container(), shape = holder.addChild(new c.Shape()), g=shape.graphics;
+	var pow = Math.ceil(Math.log(dotSize*2.2)/Math.log(2)), size2 = Math.pow(2,pow);
+	var rect = new c.Rectangle(-size2/2, -size2/2, size2, size2);
+	var builder = new c.SpriteSheetBuilder();
+	builder.padding = 0;
+	builder.maxWidth = Math.ceil(Math.sqrt(blurLevels))*size2;
+	for (var i=0; i<blurLevels; i++) { builder.addFrame(holder, rect, 1, prepFrame, i); }
+	return builder.build();
 }
 
-vec2 random2(vec2 par){
-	float rand = random(par);
-	return vec2(rand, random(par+rand));
+function prepFrame(holder, i) {
+	var shape = holder.getChildAt(0);
+  var g=shape.graphics, m=i/blurLevels, r=dotSize/2*Math.pow(2-m,1.2), x=0*(1-m)*0.2*r;
+	g.c().rf(["hsla("+(m*120+190)+",100%,95%,1)","hsla(270,100%,85%,0)"],[m*0.8+0.1,1],x,0,0,x,0,r).dc(0,0,r);
+	shape.alpha = 0.3+0.7*m;
 }
 
-void main(){
-  // Normalized pixel coordinates (from 0 to 1)
-  vec2 uv = gl_FragCoord.xy/resolution.xy;
-
-  //The ratio of the width and height of the screen
-  float widthHeightRatio = resolution.x/resolution.y;
-
-  float t = time * 0.1;
-  float dist = 0.0;
-  const float layers = 16.0;
-  float scale = 32.0;
-  float depth;
-  float size;
-  float rotationAngle = time * 0.2;
-
-  vec2 offset;
-  vec2 local_uv;
-  vec2 index;
-  vec2 pos;
-  vec2 seed;
-  vec2 centre = vec2(0.5, 0.5);
-
-  mat2 rotation = mat2(cos(rotationAngle), -sin(rotationAngle),
-                       sin(rotationAngle),  cos(rotationAngle));
-
-	for(float i = 0.0; i < layers; i++){
-    depth = fract(i/layers + t);
-
-    //Move centre in a circle depending on the depth of the layer
-    centre.x = 0.5 + 0.1 * cos(t) * depth;
-    centre.y = 0.5 + 0.1 * sin(t) * depth;
-
-    //Get uv from the fragment coordinates, rotation and depth
-    uv = centre-gl_FragCoord.xy/resolution.xy;
-   	uv.y /= widthHeightRatio;
-    uv *= rotation;
-   	uv *= mix(scale, 0.0, depth);
-
-    //The local cell
-    index = floor(uv);
-
-    //Local cell seed;
-    seed = 20.0 * i + index;
-
-    //The local cell coordinates
-    local_uv = fract(i + uv) - 0.5;
-
-    //Get a random position for the local cell
-    pos = 0.8 * (random2(seed) - 0.5);
-
-    //Get a random size
-    size = 0.01 + 0.02*random(seed);
-
-    //Get distance to the generated point, add fading to distant points
-    //Add the distance to the sum
-		dist += smoothstep(size, 0.0, length(local_uv-pos)) * min(1.0, depth*2.0);
- 	}
-
-	gl_FragColor = vec4(vec3(dist),1.0);
-}
-`;
-
-//************** Utility functions **************
-
-window.addEventListener( 'resize', onWindowResize, false );
-
-function onWindowResize(){
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-	gl.viewport(0, 0, canvas.width, canvas.height);
-  gl.uniform1f(widthHandle, window.innerWidth);
-  gl.uniform1f(heightHandle, window.innerHeight);
+function tick(evt) {
+	var d = evt.delta;
+	for (var i=0,l=helixes.length; i<l; i++) { helixes[i].tick(d); }
+	stage.update();
 }
 
-//Compile shader and combine with source
-function compileShader(shaderSource, shaderType){
-  var shader = gl.createShader(shaderType);
-  gl.shaderSource(shader, shaderSource);
-  gl.compileShader(shader);
-  if(!gl.getShaderParameter(shader, gl.COMPILE_STATUS)){
-  	throw "Shader compile failed with: " + gl.getShaderInfoLog(shader);
-  }
-  return shader;
+function rnd(min, max) {
+	if (max === undefined) { max=min; min=0; }
+	return Math.random()*(max-min)+min;
 }
 
-//From https://codepen.io/jlfwong/pen/GqmroZ
-//Utility to complain loudly if we fail to find the attribute/uniform
-function getAttribLocation(program, name) {
-  var attributeLocation = gl.getAttribLocation(program, name);
-  if (attributeLocation === -1) {
-  	throw 'Cannot find attribute ' + name + '.';
-  }
-  return attributeLocation;
+function onResize() {
+	w = window.innerWidth;
+	h = window.innerHeight;
+	max = Math.max(w,h);
+	min = Math.min(w,h);
+	target.width = w;
+	target.height = h;
+	stage.updateViewport(w,h);
+	for (var i=0; i<helixes.length; i++) {
+		helixes[i].x = w/2;
+		helixes[i].y = h/2;
+	}
+	particleScale = min/1000*0.3;
+	stage.update();
 }
-
-function getUniformLocation(program, name) {
-  var attributeLocation = gl.getUniformLocation(program, name);
-  if (attributeLocation === -1) {
-  	throw 'Cannot find uniform ' + name + '.';
-  }
-  return attributeLocation;
-}
-
-//************** Create shaders **************
-
-//Create vertex and fragment shaders
-var vertexShader = compileShader(vertexSource, gl.VERTEX_SHADER);
-var fragmentShader = compileShader(fragmentSource, gl.FRAGMENT_SHADER);
-
-//Create shader programs
-var program = gl.createProgram();
-gl.attachShader(program, vertexShader);
-gl.attachShader(program, fragmentShader);
-gl.linkProgram(program);
-
-gl.useProgram(program);
-
-//Set up rectangle covering entire canvas
-var vertexData = new Float32Array([
-  -1.0,  1.0, 	// top left
-  -1.0, -1.0, 	// bottom left
-   1.0,  1.0, 	// top right
-   1.0, -1.0, 	// bottom right
-]);
-
-//Create vertex buffer
-var vertexDataBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
-
-// Layout of our data in the vertex buffer
-var positionHandle = getAttribLocation(program, 'position');
-
-gl.enableVertexAttribArray(positionHandle);
-gl.vertexAttribPointer(positionHandle,
-  2, 				// position is a vec2 (2 values per component)
-  gl.FLOAT, // each component is a float
-  false, 		// don't normalize values
-  2 * 4, 		// two 4 byte float components per vertex (32 bit float is 4 bytes)
-  0 				// how many bytes inside the buffer to start from
-  );
-
-//Set uniform handle
-var timeHandle = getUniformLocation(program, 'time');
-var widthHandle = getUniformLocation(program, 'width');
-var heightHandle = getUniformLocation(program, 'height');
-
-gl.uniform1f(widthHandle, window.innerWidth);
-gl.uniform1f(heightHandle, window.innerHeight);
-
-function draw(){
-  //Update time
-  time += dt;
-
-  //Send uniforms to program
-  gl.uniform1f(timeHandle, time);
-  //Draw a triangle strip connecting vertices 0-4
-  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-  requestAnimationFrame(draw);
-}
-
-draw();
