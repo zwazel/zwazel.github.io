@@ -3,12 +3,12 @@
     "redirects": [
       {
         "source": "/about",
-        "destination": "/about.html",
+        "destination": "/index.html",
         "type": 301
       },
       {
         "source": "/contact",
-        "destination": "/",
+        "destination": "/index.html",
         "type": 302
       }
     ],
