@@ -3117,6 +3117,14 @@
 			margin-bottom: 0.5em;
 		}
 
+		#banner h1 {
+			color: #ffffff;
+			display: inline-block;
+			font-size: 3.5em;
+			line-height: 1.35;
+			margin-bottom: 0.5em;
+		}
+
 		#banner p {
 			color: #aaa;
 			font-size: 1.5em;
