@@ -46,10 +46,14 @@
 	/*************************************************************
 	  Typewriter
 	**************************************************************/
-	.typewriter h1 {
+	.typewritediv h1 {
 	  box-shadow: none;
 	  background-color: transparent;
-
+		color: #ffffff;
+		display: inline-block;
+		font-size: 3.5em;
+		line-height: 1.35;
+		margin-bottom: 0.5em;
 	}
 	.wrap{
 	  color: #efeff9;
@@ -3110,14 +3114,6 @@
 		}
 
 		#banner h2 {
-			color: #ffffff;
-			display: inline-block;
-			font-size: 3.5em;
-			line-height: 1.35;
-			margin-bottom: 0.5em;
-		}
-
-		#banner h1 {
 			color: #ffffff;
 			display: inline-block;
 			font-size: 3.5em;

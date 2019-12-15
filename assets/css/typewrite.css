@@ -1,11 +1,4 @@
-/* GLOBAL STYLES */
-body {
-  background: #333;
-  padding-top: 5em;
-  justify-content: center;
-}
-
-/* DEMO-SPECIFIC STYLES */
+/* STYLES */
 .typewriter p {
   text-transform: uppercase;
   color: #aaa;
